@@ -14,6 +14,8 @@ class Bitmap<T>(val data: Array<T>, val width: Int, val height: Int) {
             }
         }
     }
+
+    fun isInBounds(coords: Coord): Boolean = (coords.x in 0..<width && coords.y in 0..<height)
 }
 
 fun bitmapFromString(input: String): Bitmap<Char> = Bitmap<Char>(
