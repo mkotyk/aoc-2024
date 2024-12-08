@@ -38,3 +38,5 @@ fun Long.concat(other: Int): Long {
     val magnitude = floor(log10(other.toDouble())).toInt() + 1
     return this * (10.0.pow(magnitude.toDouble())).toInt() + other
 }
+
+fun <T, R> Iterable<T>.square(block: (T, T) -> R): List<R> = this.flatMap { a -> this.map { b -> block(a, b) } }

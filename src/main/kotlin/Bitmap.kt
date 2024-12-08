@@ -2,7 +2,10 @@ package com.psyndicate.aoc
 
 data class Coord(val x: Int, val y: Int) {
     operator fun plus(direction: Direction) = Coord(x + direction.dx, y + direction.dy)
+    fun toPoint() = Point(x.toDouble(), y.toDouble())
 }
+
+fun Point.toCoord() = Coord(x.toInt(), y.toInt())
 
 class Bitmap<T>(val data: Array<T>, val width: Int, val height: Int) {
     operator fun get(x: Int, y: Int): T? = if (x in 0..<width && y in 0..<height) data[x + y * width] else null
