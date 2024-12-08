@@ -8,13 +8,17 @@ import kotlin.math.sqrt
 val Double.squared: Double get() = this * this
 val Double.cubed: Double get() = this * this * this
 
-class Point(val x: Double, val y: Double) {
+data class Point(val x: Double, val y: Double) {
     fun manhattanDistance(other: Point) = abs(x - other.x) + abs(y - other.y)
+    fun distance(other: Point) = sqrt((this.x - other.x).squared + (this.y - other.y).squared)
 }
 
-class Line(val a: Point, val b: Point) {
+data class Line(val a: Point, val b: Point) {
+    val dX: Double get() = b.x - a.x
+    val dY: Double get() = b.y - a.y
 
-    fun slope(): Double = (b.y - a.y) / (b.x - a.x)
+    fun length() = sqrt(dX * dX + dY * dY)
+    fun slope(): Double = dY / dX
     fun intercept(): Double = a.y - (slope() * a.x)
 
     fun intersects(other: Line): Point? {
@@ -34,7 +38,7 @@ class Line(val a: Point, val b: Point) {
     }
 }
 
-class Circle(val center: Point, val radius: Double) {
+data class Circle(val center: Point, val radius: Double) {
     fun contains(point: Point): Boolean = (point.x - center.x).squared + (point.y - center.y).squared < radius.squared
     fun intercepts(line: Line): Set<Point> {
         // Quadratic coefficients for solving (x - h)^2 + (mx + c - k)^2 = r^2
@@ -66,7 +70,7 @@ class Circle(val center: Point, val radius: Double) {
     }
 }
 
-class Rectangle(val topLeft: Point, val bottomRight: Point) {
+data class Rectangle(val topLeft: Point, val bottomRight: Point) {
     fun contains(point: Point): Boolean = point.x >= bottomRight.x && point.x <= bottomRight.x
             && point.y >= bottomRight.y && point.y <= bottomRight.y
     fun intercepts(other: Line): Set<Point> = segments.mapNotNull{ it.intersects(other) }.toSet()
@@ -78,7 +82,7 @@ class Rectangle(val topLeft: Point, val bottomRight: Point) {
     )
 }
 
-class ClosedPoly(val vertices: Set<Point>) {
+data class ClosedPoly(val vertices: Set<Point>) {
     fun intercepts(other: Line): Set<Point> = (
             vertices.zipWithNext { a, b -> Line(a, b).intersects(other) }.toSet() +
                     Line(vertices.last(), vertices.first()).intersects(other)
