@@ -11,6 +11,8 @@ enum class Direction(val dx: Int, val dy: Int) {
     LEFT_DOWN(-1,1)
 }
 
+val CardinalDirections = listOf(Direction.UP, Direction.RIGHT, Direction.DOWN, Direction.LEFT)
+
 fun Direction.rotate90(clockwise: Boolean): Direction {
     return if (clockwise) {
         when(this) {
