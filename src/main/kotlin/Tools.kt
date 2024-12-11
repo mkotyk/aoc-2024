@@ -39,4 +39,6 @@ fun Long.concat(other: Int): Long {
     return this * (10.0.pow(magnitude.toDouble())).toInt() + other
 }
 
+fun Long.digits(): Int = floor(log10(this.toDouble())).toInt() + 1
+
 fun <T, R> Iterable<T>.square(block: (T, T) -> R): List<R> = this.flatMap { a -> this.map { b -> block(a, b) } }
