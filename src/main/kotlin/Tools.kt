@@ -42,3 +42,14 @@ fun Long.concat(other: Int): Long {
 fun Long.digits(): Int = floor(log10(this.toDouble())).toInt() + 1
 
 fun <T, R> Iterable<T>.square(block: (T, T) -> R): List<R> = this.flatMap { a -> this.map { b -> block(a, b) } }
+
+fun <T, R : Comparable<R>> Iterable<T>.minMax(block: (T) -> R): Pair<R, R> {
+    var min: R? = null
+    var max: R? = null
+    forEach {
+        val r = block(it)
+        if (max == null || r > max!!) max = r
+        if (min === null || r < min!!) min = r
+    }
+    return min!! to max!!
+}
