@@ -40,3 +40,16 @@ fun bitmapFromString(input: String): Bitmap<Char> = Bitmap<Char>(
     width = input.indexOf('\n'),
     height = input.count { it == '\n' } + 1
 )
+
+inline fun <reified T> bitmapFromCoords(coords: List<Coord>, filled: T, empty: T): Bitmap<T> {
+    val (minX, maxX) = coords.minMax { it.x }
+    val (minY, maxY) = coords.minMax { it.y }
+    val width = (maxX - minX) + 1
+    val height = (maxY - minY + 1)
+    return Bitmap<T>(Array<T>(width * height) { empty }, width, height).apply {
+        coords.forEach {
+            val adjustedPosition = Coord(it.x - minX, it.y - minY)
+            this[adjustedPosition] = filled
+        }
+    }
+}
