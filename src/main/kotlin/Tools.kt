@@ -53,3 +53,10 @@ fun <T, R : Comparable<R>> Iterable<T>.minMax(block: (T) -> R): Pair<R, R> {
     }
     return min!! to max!!
 }
+
+fun <T> List<T>.allIndexed(predicate: (Int, T) -> Boolean): Boolean {
+    this.forEachIndexed { index, value ->
+        if (!predicate(index, value)) return@allIndexed false
+    }
+    return true
+}
