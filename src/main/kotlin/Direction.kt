@@ -38,3 +38,5 @@ fun Direction.rotate90(clockwise: Boolean): Direction {
         }
     }
 }
+
+operator fun Direction.times(magnitude: Int) = Coord(dx * magnitude, dy * magnitude)

@@ -2,6 +2,9 @@ package com.psyndicate.aoc
 
 data class Coord(val x: Int, val y: Int) {
     operator fun plus(direction: Direction) = Coord(x + direction.dx, y + direction.dy)
+    operator fun minus(direction: Direction) = Coord(x - direction.dx, y - direction.dy)
+    operator fun plus(other: Coord) = Coord(x + other.x, y + other.y)
+    operator fun minus(other: Coord) = Coord(x - other.x, y - other.y)
     fun toPoint() = Point(x.toDouble(), y.toDouble())
 }
 
