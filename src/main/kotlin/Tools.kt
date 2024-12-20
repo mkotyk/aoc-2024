@@ -60,3 +60,14 @@ fun <T> List<T>.allIndexed(predicate: (Int, T) -> Boolean): Boolean {
     }
     return true
 }
+
+fun <T : Any> Iterable<T>.distinctPairs(): Sequence<Pair<T, T>> = sequence {
+    val iter = this@distinctPairs.iterator()
+    if (!iter.hasNext()) return@sequence
+    val previous = mutableListOf(iter.next())
+    while(iter.hasNext()) {
+        val second = iter.next()
+        for (first in previous) yield(first to second)
+        previous.add(second)
+    }
+}

@@ -1,11 +1,17 @@
 package com.psyndicate.aoc
 
+import kotlin.math.abs
+import kotlin.math.sqrt
+
+
 data class Coord(val x: Int, val y: Int) {
     operator fun plus(direction: Direction) = Coord(x + direction.dx, y + direction.dy)
     operator fun minus(direction: Direction) = Coord(x - direction.dx, y - direction.dy)
     operator fun plus(other: Coord) = Coord(x + other.x, y + other.y)
     operator fun minus(other: Coord) = Coord(x - other.x, y - other.y)
     fun toPoint() = Point(x.toDouble(), y.toDouble())
+    fun manhattanDistance(other: Coord) = abs(x - other.x) + abs(y - other.y)
+    fun distance(other: Coord) = sqrt((this.x - other.x).toDouble().squared + (this.y - other.y).toDouble().squared)
 }
 
 fun Point.toCoord() = Coord(x.toInt(), y.toInt())
