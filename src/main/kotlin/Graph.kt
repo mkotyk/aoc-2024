@@ -1,7 +1,7 @@
 package com.psyndicate.aoc
 
-class Edge<V>(val from: V, val to: V)
-class Graph<V, E : Edge<V>>(val vertices: Set<V>, val edges: Set<E>) {
+data class Edge<V>(val from: V, val to: V)
+data class Graph<V, E : Edge<V>>(val vertices: Set<V>, val edges: Set<E>) {
     fun dijkstra(source: V): Map<V, Pair<Int, V?>> {
         val dist = mutableMapOf<V, Int>()
         val prev = mutableMapOf<V, V?>()
